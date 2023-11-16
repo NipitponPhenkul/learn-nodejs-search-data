@@ -9,6 +9,10 @@ html(lang="en")
     .container.my-5
       h1 รายการหนัง/ซีรี่ย์ (#{total})
       p.text-secondary (คุณอยู่หน้าที่ #{page})
+      form
+        .input-group
+          input.form-control(name="keyword" type="search" placeholder="ระบุคำค้นหา..." value=keywordInput)
+          button.btn.btn-outline-secondary ค้นหา
       hr
       if movies.length == 0
         p.text-danger.text-center ไม่พบข้อมูล
@@ -31,5 +35,5 @@ html(lang="en")
         - let pageIndex = 1
         while pageIndex <= totalPage
           li.page-item(class=page == pageIndex ? 'active' : '')
-            a.page-link(href=`?page=${pageIndex}`)= pageIndex++
+            a.page-link(href=`?page=${pageIndex}${keywordInput ? `&keyword=${keywordInput}` : ''}`)= pageIndex++
 
