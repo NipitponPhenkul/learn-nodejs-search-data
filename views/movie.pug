@@ -1,0 +1,13 @@
+extends _layout
+
+block content
+  h1= movie.title
+  .row
+    each comment in movie.comments
+      .col-6.col-md-4
+        .card
+          .card-body
+            h2.card-title= comment.name
+            p.card-text= comment.text
+            p.text-end.text-secondary= comment.date
+
