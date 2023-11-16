@@ -15,10 +15,14 @@ app.get('/', async (req, res) => {
   const page = req.query.page ? Number(req.query.page) : 1
   const limit = 20
   const movies = await col
-    .find()
-    .skip((page -1) * limit)
-    .limit(limit)
-    .toArray()
+    .aggregate([
+      { $skip: (page -1) * limit },
+      { $limit: limit }
+    ]).toArray()
+    // .find()
+    // .skip((page -1) * limit)
+    // .limit(limit)
+    // .toArray()
   const total = await col.countDocuments()
   const totalPage = Math.ceil(total / limit)
   res.render('index', { movies, total, page, limit, totalPage })
